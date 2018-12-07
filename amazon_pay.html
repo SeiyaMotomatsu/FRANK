@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>amzon pay</title>
+</head>
+<body>
+
+        <script async="async" src='https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js'></script>
+        <div id="AmazonPayButton"></div>
+        <script>
+            window.onAmazonLoginReady = function () {
+                amazon.Login.setClientId('--- CLIENT_ID ---');
+            };
+            window.onAmazonPaymentsReady = function() {
+                showButton();
+            };
+        </script>
+        <script>
+        function showButton() {
+            var authRequest;
+            OffAmazonPayments.Button("AmazonPayButton", "--- MERCHANT_ID ---", {
+                type: "PwA",
+                color: "Gold",
+                size: "large",
+                language: "jp",
+                authorization: function () {
+                    loginOptions = { scope: "profile payments:widget", popup: true };
+                    authRequest = amazon.Login.authorize(loginOptions, "--- REDIRECT_URL ---");
+                },
+                onError: function(error) {
+                    // error handling
+                }
+            });
+        };
+        </script>
+    
+</body>
+</html>
